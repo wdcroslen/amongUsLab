@@ -32,6 +32,7 @@ class Game {
 
 	/* The method displayBoard traverses through the board and displays the map */
 	public void displayBoard(){
+		System.out.println("  0 1 2 3 4 5 6 7 8 9");
 		for(int i =0;i<this.board.length; i++){
 			System.out.print(i + " ");
 			for(int j = 0;j<this.board.length; j++){
@@ -104,7 +105,7 @@ class Game {
 			}
 			firstRound = false;
 		}
-	}
+	}//end beginGame
 
 	/* The method randomly selects a color as an imposter (excluding the user*/
 	public void fillCrewmates(){
@@ -198,7 +199,8 @@ class Game {
 						//Make sure to assign true to isDead 
 						this.players[i].setIsDead(true);
 						if(this.players[i].getIsImposter()) {
-							System.out.println("\n" + c + " was the imposter.\n0 imposters remains.\nVICTORY!");
+							System.out.println("\n" + c + " was the imposter.\n0 imposters remain.\nVICTORY!");
+							isGameOver = true;
 						}
 						else {
 							System.out.println("\n" + " was not the imposter.\n1 imposter remains.");
