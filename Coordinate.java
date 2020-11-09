@@ -14,10 +14,12 @@ class Coordinate {
     this.x = x;
     this.y = y;
   }
+  
   //Setters
   public void setX(int x){
     this.x = x;
   }
+  
   public void setY(int y){
       this.y=y;
   }
@@ -26,6 +28,7 @@ class Coordinate {
   public int getX(){
     return this.x;
   }
+  
   public int getY(){
     return this.y;
   }
@@ -36,5 +39,6 @@ class Coordinate {
     int y = r.nextInt(10);
     return new Coordinate(x,y);
   }
+  
 }
 

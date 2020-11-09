@@ -55,6 +55,8 @@ class Game {
 	/* The method begins the game by asking the user to select which color they would like to play as. */
 	public void beginGame() throws InterruptedException{
 		Scanner scnr = new Scanner(System.in);
+		Scanner ejectPlayer = new Scanner(System.in);
+		
 		System.out.println("Hello User Welcome to Among Us!");
 		System.out.print("\nEnter a color you would like to play as:\n1. Blue\n2. Pink\n"
 				+"3. Purple\n4. Green\n5. Orange\n6. Yellow\n7. White\n8. Cyan\n9. Brown\n10. Red\n> ");
@@ -72,6 +74,9 @@ class Game {
 		//COUNTS DOWN TO BEGIN GAME
 		printWithDelays("54321", TimeUnit.MILLISECONDS,1000);
 		
+		//Fill Players
+		this.fillCrewmates();
+		
 		//The game repeats until either: the imposter is successfully identified and ejected or the player size is 2
 		while(!isGameOver) {
 			if(this.numOfRemainingPlayers == 2) {
@@ -81,7 +86,6 @@ class Game {
 			else {
 				System.out.println("\n------- POLLUS MAP -------\n");
 			
-				this.fillCrewmates();
 				this.killCrewmate();
 				this.createMap();
 				this.fillBoard();
@@ -93,12 +97,9 @@ class Game {
 				//Display the crewmate that was just killed
 				System.out.println(this.players[deadCrewmate].getColor() + " died in: "+ displayCoordinate(players[deadCrewmate].getCoordinate()));
 				System.out.println("[DEBUG RESULTS] IMPOSTER COLOR: "+this.imposterColor);
-			
-				//Flush scanner to accept lines
-				scnr.nextLine();
 				
 				System.out.print("\n____ is acting sus: [Enter character value]\n> ");
-				sus = scnr.nextLine().charAt(0);
+				sus = ejectPlayer.nextLine().charAt(0);
 			
 				//Call the eject method
 				eject(sus);
@@ -129,13 +130,20 @@ class Game {
 	}
 
 	public void fillBoard(){
+		//Coordinate class that stores random chosen coordinates
+		Coordinate [] generated = new Coordinate[10];
+		
 		//instantiate a coordinate class
-		Coordinate nc;
+		Coordinate nc = new Coordinate();
 		for (int i=0; i < this.players.length;i++){
-			nc = new Coordinate();
+			nc = nc.generateCoordinate();
+			
+			generated[i] = nc;
 
 			this.players[i].setCoordinate(nc.generateCoordinate());
 			/*NOTE we should probably give students the code to make sure there are no overlapping coordinates*/
+			
+			//Placing players on the 2D array board
 			int x = this.players[i].getCoordinate().getX();
 			int y = this.players[i].getCoordinate().getY();
 			this.board[y][x] = this.players[i].getColor();
