@@ -1,12 +1,17 @@
 
 class Player {
-  boolean isImposter;
-  char color;
-  Coordinate coordinate = new Coordinate();
+  private boolean isImposter;
+  private boolean isDead;
+  private char color;
+  private Coordinate coordinate;
   
-  Player(){
-
+  Player(char color, boolean isImposter, boolean isDead){
+	  this.color = color;
+	  this.isImposter = isImposter;
+	  this.isDead = isDead;
+	  coordinate = new Coordinate();
   }
+  
   //These should be private but I'll leave it public for if we don't teach them encapsulation
   public void setCoordinate(Coordinate location){
     this.coordinate = location;
@@ -17,6 +22,9 @@ class Player {
   public void setIsImposter(boolean isImposter){
     this.isImposter = isImposter;
   }
+  public void setIsDead(boolean isDead) {
+	  this.isDead = isDead;
+  }
 
   public boolean getIsImposter(){
     return this.isImposter;
@@ -26,8 +34,12 @@ class Player {
     return this.color;
   }
 
-  Coordinate getCoordinate(){
+  public Coordinate getCoordinate(){
     return this.coordinate;
+  }
+  
+  public boolean getIsDead() {
+	  return this.isDead;
   }
 
 }

@@ -1,12 +1,13 @@
 import java.util.Random;
 
 class Coordinate {
-  int x;
-  int y;
+  private int x;
+  private int y;
 
   //Constructors
   Coordinate(){
-    
+    this.x = 0;
+    this.y = 0;
   }
 
   Coordinate(int x, int y){
@@ -33,8 +34,7 @@ class Coordinate {
     Random r = new Random();
     int x = r.nextInt(10);
     int y = r.nextInt(10);
-    Coordinate c = new Coordinate(x,y);
-    return c;
+    return new Coordinate(x,y);
   }
 }
 
