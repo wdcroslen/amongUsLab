@@ -203,7 +203,7 @@ class Game {
 							isGameOver = true;
 						}
 						else {
-							System.out.println("\n" + " was not the imposter.\n1 imposter remains.");
+							System.out.println("\n" + c + " was not the imposter.\n1 imposter remains.");
 						}
 					}
 					found = true;
