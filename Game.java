@@ -36,7 +36,22 @@ class Game {
 		for(int i =0;i<this.board.length; i++){
 			System.out.print(i + " ");
 			for(int j = 0;j<this.board.length; j++){
-				System.out.print(board[i][j] + " ");
+				
+				if (board[i][j] != '-'){
+					for(int k = 0;k<this.players.length; k++){
+						if (players[k].getColor() == board[i][j]){
+							if (players[k].getIsDead()){
+								System.out.print("- ");
+							}
+							else{
+								System.out.print(board[i][j] + " ");
+							}
+						}
+					}
+				}
+				else{
+					System.out.print(board[i][j] + " ");
+				}
 			}
 			System.out.println();
 		}
@@ -132,20 +147,50 @@ class Game {
 	public void fillBoard(){
 		//Coordinate class that stores random chosen coordinates
 		Coordinate [] generated = new Coordinate[10];
+		Coordinate nc = new Coordinate();
+		
+		
+		for (int q = 0; q<generated.length; q++){
+			generated[q] = nc;
+		}
+		
+		
 		
 		//instantiate a coordinate class
-		Coordinate nc = new Coordinate();
+		
+		int x;
+		int y;
+		boolean br; 
+		boolean different;
 		for (int i=0; i < this.players.length;i++){
-			nc = nc.generateCoordinate();
+			different = false;
+			//nc = (1,2)  == (0,1)
+			//[(0,1),(1,2),(3,4)]
+		
+			while (!different){
+				br = false;
+				//boolean that tells us if we broke out of inner loop
+				nc = nc.generateCoordinate();
+				for (int j = 0; j<generated.length; j++){
+					if (generated[j].getX()==nc.getX() && generated[j].getY() == nc.getY()){
+						br = true;
+						break;
+					}
+				}
+				if (!br){ // if we didn't break 
+					different = true;
+				}
+			}
 			
 			generated[i] = nc;
 
-			this.players[i].setCoordinate(nc.generateCoordinate());
+			this.players[i].setCoordinate(nc);
+			
 			/*NOTE we should probably give students the code to make sure there are no overlapping coordinates*/
 			
 			//Placing players on the 2D array board
-			int x = this.players[i].getCoordinate().getX();
-			int y = this.players[i].getCoordinate().getY();
+			x = this.players[i].getCoordinate().getX();
+			y = this.players[i].getCoordinate().getY();
 			this.board[y][x] = this.players[i].getColor();
 		}
 	}
