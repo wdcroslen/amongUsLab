@@ -71,6 +71,7 @@ class Game {
 	public void beginGame() throws InterruptedException{
 		Scanner scnr = new Scanner(System.in);
 		Scanner ejectPlayer = new Scanner(System.in);
+		String temp;
 		
 		System.out.println("Hello User Welcome to Among Us!");
 		System.out.print("\nEnter a color you would like to play as:\n1. Blue\n2. Pink\n"
@@ -113,11 +114,15 @@ class Game {
 				System.out.println(this.players[deadCrewmate].getColor() + " died in: "+ displayCoordinate(players[deadCrewmate].getCoordinate()));
 				System.out.println("[DEBUG RESULTS] IMPOSTER COLOR: "+this.imposterColor);
 				
-				System.out.print("\n____ is acting sus: [Enter character value]\n> ");
-				sus = ejectPlayer.nextLine().charAt(0);
-			
+				System.out.print("\n____ is acting sus: [Enter character value](enter to skip)\n> ");
+				temp = ejectPlayer.nextLine();
+				if (!temp.equals("")){
+					sus = Character.toUpperCase(temp.charAt(0));
+					eject(sus);
+				}//TODO: Fix -- Imposter and Player can die
+				
 				//Call the eject method
-				eject(sus);
+				
 			}
 			firstRound = false;
 		}
@@ -231,11 +236,11 @@ class Game {
 	public void printWithDelays(String data, TimeUnit unit, long delay) throws InterruptedException {
 		unit.sleep(delay);
 		System.out.println("\nREADY?");
-		unit.sleep(delay);
-	    for (char ch : data.toCharArray()) {
-	        System.out.println(ch);
-	        unit.sleep(delay);
-	    }
+//		unit.sleep(delay);
+//	    for (char ch : data.toCharArray()) {
+//	        System.out.println(ch);
+//	        unit.sleep(delay);
+//	    }
 	}
 	
 	/* Eject crewmate */
