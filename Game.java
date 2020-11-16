@@ -41,7 +41,7 @@ class Game {
 					for(int k = 0;k<this.players.length; k++){
 						if (players[k].getColor() == board[i][j]){
 							if (players[k].getIsDead()){
-								System.out.print("- ");
+								System.out.print("/ ");
 							}
 							else{
 								System.out.print(board[i][j] + " ");
@@ -95,7 +95,7 @@ class Game {
 		
 		//The game repeats until either: the imposter is successfully identified and ejected or the player size is 2
 		while(!isGameOver) {
-			if(this.numOfRemainingPlayers == 2) {
+			if(this.numOfRemainingPlayers <= 3) {
 				System.out.println("DEFEAT\n"+this.imposterColor+" won.");
 				isGameOver = true;
 			}
@@ -120,7 +120,6 @@ class Game {
 					sus = Character.toUpperCase(temp.charAt(0));
 					eject(sus);
 				}//TODO: Fix -- Imposter and Player can die
-				
 				//Call the eject method
 				
 			}
@@ -214,17 +213,15 @@ class Game {
 	public void killCrewmate() {
 		Random r = new Random();
 		//Continue to generate a new crewmate to kill if the deadCrewmates' value [isDead] is true
-		if( firstRound ) {
+		while( players[deadCrewmate].getIsDead() 
+			   || players[deadCrewmate].getColor() == (imposterColor) 
+			   || players[deadCrewmate].getColor() == (userColor)){
 			deadCrewmate = r.nextInt(10);
-		} else{
-			do {
-				deadCrewmate = r.nextInt(10);
-			}while( players[deadCrewmate].getIsDead() );
 		}
-		
 		//Set deadCrewmate's isDead value to TRUE
 		this.players[deadCrewmate].setIsDead(true);
 		this.colors[deadCrewmate] = '/';
+		this.numOfRemainingPlayers--;
 	}
 	
 	/* The method displays the coordinate of the user and the dead crewmate */
