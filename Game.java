@@ -41,7 +41,7 @@ class Game {
 					for(int k = 0;k<this.players.length; k++){
 						if (players[k].getColor() == board[i][j]){
 							if (players[k].getIsDead()){
-								System.out.print("/ ");
+								System.out.print("👻 ");
 							}
 							else{
 								System.out.print(board[i][j] + " ");
