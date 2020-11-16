@@ -233,11 +233,11 @@ class Game {
 	public void printWithDelays(String data, TimeUnit unit, long delay) throws InterruptedException {
 		unit.sleep(delay);
 		System.out.println("\nREADY?");
-//		unit.sleep(delay);
-//	    for (char ch : data.toCharArray()) {
-//	        System.out.println(ch);
-//	        unit.sleep(delay);
-//	    }
+		unit.sleep(delay);
+	    for (char ch : data.toCharArray()) {
+	        System.out.println(ch);
+	        unit.sleep(delay);
+	    }
 	}
 	
 	/* Eject crewmate */
